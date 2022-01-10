@@ -1,0 +1,10 @@
+
+*.env
+*.env.production
+firebase.json
+*.firebaserc
+build/
+dev/
+node_modules/
+.firebase/
+/src/App/Assets/profile.png
