@@ -1,7 +1,7 @@
 import React , {useState , useRef , useEffect } from 'react'
 import styled  from 'styled-components'
 import Navlink from '../navlink/Navlink'
-import {FiMoon} from "react-icons/fi"
+import {FiBluetooth, FiMoon} from "react-icons/fi"
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {BsCloudSun} from 'react-icons/bs'
 import {useThemeToggler} from '../../Context/ThemeToggle'
@@ -10,10 +10,6 @@ function Navbar() {
     const {Toggle , theme , dark} = useThemeToggler()
     const [enable , setEnable] = useState(false)
     const [ModalMount , setModalMount] = useState(false);
-
-    const ModalToggle = (val) => {
-        setModalMount(val)
-    }
 
     const MenuToggle =() => {
         setEnable(!enable)
@@ -24,9 +20,7 @@ function Navbar() {
         if(blur.current.contains(e.target)){ //do nothing when clicking inside 
             return ;
         }
-        else
-        if(ModalMount)
-        setEnable(false)
+  
     }
 
 
@@ -35,7 +29,7 @@ function Navbar() {
         document.addEventListener("mousedown", handleClick);
 
         return () => {
-          document.removeEventListener("mousedown", handleClick); //remove listener on unmount
+          document.removeEventListener("mousedown", handleClick); 
         };
       }, []);
     
@@ -58,8 +52,8 @@ function Navbar() {
                         </Button>)
                     }
                     <div ref={blur} style={{position:'relative'}}>
-                        <Menu onClick={MenuToggle} ><GiHamburgerMenu/></Menu>
-                        {enable ?  (<Dropdown color={theme.secondary}><Navlink ModalToggle={ModalToggle}/></Dropdown>)  : "" }
+                        <Menu onClick={MenuToggle}><GiHamburgerMenu/></Menu>
+                        {enable ?  (<Dropdown color={theme.secondary}><Navlink /></Dropdown>)  : "" }
                     </div>
                 </Container>
 

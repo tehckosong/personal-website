@@ -19,7 +19,7 @@ export default Footer
 const Foot = styled.footer `   
     display:flex;
     justify-content: center;
-    align-items:end;
+    align-items:flex-end;
     height:20vh;
     font-size:10px;
     color:grey;

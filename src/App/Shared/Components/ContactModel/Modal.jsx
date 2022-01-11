@@ -2,11 +2,12 @@ import React , {useState , useEffect , useRef} from 'react'
 import ReactDom from "react-dom"
 import { CSSTransition } from 'react-transition-group'
 import Backdrop from './Backdrop'
-import {Form , Spinner} from "react-bootstrap"
+import {Form, Spinner} from "react-bootstrap"
 import styled from 'styled-components'
 import {AiOutlineClose} from 'react-icons/ai'
 import axios from "axios"
 import { Validate_Email , Validate_Min } from '../validator/Validator'
+
 const ContactOverlay = (props) => { 
     const exit = useRef()
     const [enabled , setEnable] = useState(false);
@@ -16,7 +17,7 @@ const ContactOverlay = (props) => {
     const [Contact, setContact] = useState([{value:null , isValid : false }]);
     const [Email, setEmail] = useState([{value: null , isValid : false }]);
     const [Message, setMessage] = useState([{value: null , isValid : false }]);
-    const SubmitForm = async(event) => {
+    const SubmitForm = (event) => {
         event.preventDefault();
         const form = {
             Name : Name[0].value,
@@ -24,16 +25,10 @@ const ContactOverlay = (props) => {
             Email : Email[0].value,
             Message : Message[0].value,
         }
-
-        try {
-            setLoading(true)
-            const res = await axios.post(process.env.EMAILER , form )
-            console.log(res)
+        setLoading(true)
+        axios.post(process.env.EMAILER, form).then(res => {
             res.data.status < 400 ?  exit.current.click() : setLoading(false)
-        }catch(err) {
-            setError(prev => [{...prev, value:err.message ,  isValid : true}])
-            console.log(err)
-        }
+        }).catch(err => setError(prev => [{...prev, value:err.message ,  isValid : true}]) )
         
     }
 
@@ -66,7 +61,7 @@ const ContactOverlay = (props) => {
     
     const content = (
         <>
-        <ContactForm  className="contact-overlay" onSubmit={SubmitForm}>
+        <ContactForm onSubmit={SubmitForm}>
             <Button ref={exit} onClick={props.onCancel}><AiOutlineClose size={20}/></Button>
             <FormGroup  controlId="Name">
                 <Form.Label>Name</Form.Label>
@@ -85,7 +80,7 @@ const ContactOverlay = (props) => {
                 <Form.Control as="textarea" onChange={handleMessage} />
             </FormGroup>
             <Submit  type="submit" disabled={!enabled} >Submit</Submit>
-            {error[0].isValid  ? <p style={{textAlign:"center"}}>{error[0].value}</p> :  " "}
+            {error[0].isValid  ? <p style={{textAlign:"center"}}>{error[0].value}</p> :  ""}
             {loading ? <Spinner style={{margin:"0 auto 10px auto" , }} animation="border" role="status"/> : ""}
         </ContactForm>
         </>

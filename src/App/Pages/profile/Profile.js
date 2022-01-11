@@ -2,7 +2,7 @@ import React , {useState , useEffect} from 'react';
 import styled from 'styled-components';
 import {useThemeToggler} from "../../Shared/Context/ThemeToggle";
 import { CSSTransition } from 'react-transition-group'
-import {AiFillInstagram} from 'react-icons/ai';
+import {HiOutlineMail} from 'react-icons/hi';
 import {BsFacebook} from "react-icons/bs";
 import {AiFillGithub} from 'react-icons/ai';
 import Display from "../../Assets/profile.png"
@@ -20,9 +20,9 @@ function Profile() {
                 <Name>
                     <p style={{textAlign:"center"}}><strong>Tan Heng Sheng</strong></p>   
                     <Icons>
-                        <Icon color={"#8a3ab9"} href="https://www.instagram.com/" target="_blank"><AiFillInstagram size={20}/></Icon> 
+                        <Icon color={"#171515"} href="mailto:hshengtan1999@gmail.com" target="_blank"><HiOutlineMail size={20}/></Icon> 
                         <Icon color={"#4267B2"} href="https://www.facebook.com/" target="_blank"><BsFacebook size={20}/></Icon> 
-                        <Icon color={"#171515 "} href="https://github.com/tehckosong/personal-website" target="_blank"><AiFillGithub size={20} /></Icon>
+                        <Icon color={"#171515"} href="https://github.com/tehckosong" target="_blank"><AiFillGithub size={20} /></Icon>
                     </Icons>
                 </Name>
             </Description>
@@ -30,12 +30,12 @@ function Profile() {
 
                             
         <Section>
-            <Header color={theme.secondary}>About Me</Header>
+            <Header color={theme.secondary}>About Me.</Header>
             <Paragraph line={1.55}>
                <p>Graduated with a diploma in information technology from Ngee Ann Polytechnic, during the course of my studies and internship i have been exposed to many new kind of 
-                technology such as AI and RPA, gained insight of building scalable web application on a large scale therefore sparking my interest in this field.</p>
-                <p> I enjoy pushing myself out of my comfort-zone and challenging myself to do better and improve.</p> <p> I am versatile and an outstanding team player , determined to make a positive 
-                impact wherever i go. I strive to better myself as a developer, proactive looking for opportunity to gain relavant work experience.</p>
+                technology such as AI and RPA, gained insighful knowledge on how large scale web applications operate behind the scenes.</p>
+                <p>I enjoy pushing myself out of my comfort-zone and challenging myself to do better and improve.</p> <p> I am hardworking and an versatile team player, determined to make a positive 
+                impact wherever i go. I strive to better myself as a developer, currently proactive looking for opportunity to gain relavant work experience.</p>
             
             </Paragraph>
         </Section>
