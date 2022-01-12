@@ -9,7 +9,7 @@ function Navbar() {
     const blur = useRef();
     const {Toggle , theme , dark} = useThemeToggler()
     const [enable , setEnable] = useState(false)
-    const [ModalMount , setModalMount] = useState(false);
+
 
     const MenuToggle =() => {
         setEnable(!enable)
@@ -20,6 +20,8 @@ function Navbar() {
         if(blur.current.contains(e.target)){ //do nothing when clicking inside 
             return ;
         }
+
+        setEnable(false)
   
     }
 
@@ -38,19 +40,16 @@ function Navbar() {
             <NavItem>
                 <Container><Logo href="/">Welcome</Logo></Container>
                 <NavItems>
-                    <Navlink modalMount={setModalMount} />
+                    <Navlink  />
                 </NavItems>  
                 <Container >
-                    {
-                         dark ? 
-                        (<Button color={theme.secondary} onClick={Toggle}> 
-                                <Icon><BsCloudSun size={20}/></Icon>
-                        </Button>) 
-                        : 
-                        (<Button color={theme.secondary} onClick={Toggle}> 
-                                <Icon ><FiMoon size={20}/></Icon>
-                        </Button>)
-                    }
+
+                        <Button color={theme.secondary} onClick={Toggle}> 
+                            
+                                <Icon className={`icon ${!dark ? "show-moon" : "close-moon"}`}><FiMoon size={20}/></Icon>
+                                <Icon className={`icon ${dark ? "show-sun" : "close-sun"}`}><BsCloudSun size={20}/></Icon>
+                        </Button>
+
                     <div ref={blur} style={{position:'relative'}}>
                         <Menu onClick={MenuToggle}><GiHamburgerMenu/></Menu>
                         {enable ?  (<Dropdown color={theme.secondary}><Navlink /></Dropdown>)  : "" }
@@ -64,13 +63,33 @@ function Navbar() {
     )
 }
 
+
 export default Navbar
 
 const Icon = styled.div `
+    transition : transform 0.5s;
 
-    &:hover {
-        transform:scaleY(1.01)
+
+    &.show-moon {
+        opacity:1;
+
     }
+    &.close-moon {
+        transform: translate(15px, 30px);
+        position:absolute;
+        opacity:0; 
+    }
+
+    &.show-sun {
+        opacity:1;
+
+    }
+    &.close-sun {
+        transform: translate(-30px,30px);
+        position:absolute;
+        opacity:0;
+    }
+\
 `
 
 const Nav = styled.div `

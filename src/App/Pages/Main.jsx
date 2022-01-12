@@ -1,17 +1,28 @@
-import React from 'react'
-//import Profile from './profile/Profile'
+import React, {useState} from 'react'
 import styled from 'styled-components'
-//import Footer from '../Shared/Components/footer/Footer'
 const Profile = React.lazy(() => import("./profile/Profile"))
 const Footer = React.lazy(() => import('../Shared/Components/footer/Footer'))
+import Modal from '../Shared/Components/ContactModel/Modal'
+import {Routes ,Route} from "react-router-dom"
+import {useNavigate} from 'react-router-dom'
+
 function Main() {
-    
+  const navigate = useNavigate();
+  const navigateBack = () => {
+    navigate("/")
+  }
     return (
         <>
+        
           <MainWrapper>
             <Profile/>
+            <Routes>
+              <Route path="/contact" element={<Modal show={true} onCancel={navigateBack}/>} />
+            </Routes>
+
           </MainWrapper> 
           <Footer/>
+         
         </>
        
     )

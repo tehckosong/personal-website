@@ -20,9 +20,9 @@ function Profile() {
                 <Name>
                     <p style={{textAlign:"center"}}><strong>Tan Heng Sheng</strong></p>   
                     <Icons>
-                        <Icon color={"#171515"} href="mailto:hshengtan1999@gmail.com" target="_blank"><HiOutlineMail size={20}/></Icon> 
+                        <Icon color={theme.text} href="mailto:hshengtan1999@gmail.com" target="_blank"><HiOutlineMail size={20}/></Icon> 
                         <Icon color={"#4267B2"} href="https://www.facebook.com/" target="_blank"><BsFacebook size={20}/></Icon> 
-                        <Icon color={"#171515"} href="https://github.com/tehckosong" target="_blank"><AiFillGithub size={20} /></Icon>
+                        <Icon color={theme.text} href="https://github.com/tehckosong" target="_blank"><AiFillGithub size={20} /></Icon>
                     </Icons>
                 </Name>
             </Description>
@@ -42,7 +42,7 @@ function Profile() {
              
 
         <Section>
-            <Header color={theme.secondary}>Education</Header>
+            <Header color={theme.secondary}>My Life</Header>
             <Paragraph>
                <p> <strong>2016 - 2019 </strong>FairField Methodist Secondary </p>
                <p> <strong>2016 - 2019 </strong>Ngee Ann Polytechnic </p>
@@ -65,10 +65,22 @@ function Profile() {
         <Section>
             <Header color={theme.secondary}>Work Experience</Header>
                 <Paragraph>
-                    <p>CrimsonLogic GeTs Asia <br></br>
+                    <p><strong>Republic of Singapore Air Force</strong> <br></br>
+                        Full-time National Serviceman
+                    </p>
+                    <p>October 2019 - October 2021</p>
+                </Paragraph>
+                <Paragraph>
+                    <p><strong>CrimsonLogic GeTs Asia</strong> <br></br>
                         Software Development Intern
                     </p>
-                    <p><strong>September 2018 - March 2019</strong></p>
+                    <p>     September 2018 - March 2019</p>
+                </Paragraph>
+                <Paragraph>
+                    <p><strong>Grab Holdings, Singapore</strong> <br></br>
+                        Sales Representative
+                    </p>
+                    <p>     March 2017 - April 2017</p>
                 </Paragraph>
         </Section>
     </>

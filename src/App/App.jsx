@@ -1,4 +1,4 @@
-import React , {Suspense} from 'react'
+import React , {Suspense , useState} from 'react'
 import { BrowserRouter  as Router , Route, Routes } from "react-router-dom"
 import GlobalStyle from "./GlobalStyles"
 import { ThemeProvider } from 'styled-components';
@@ -8,17 +8,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Main = React.lazy(() => import("./Pages/Main"));
 const NotFound = React.lazy(() => import("./Pages/NotFound/NotFound"));
 const App = () => {
-
     const {toggle, theme} = useThemeToggler()
+
     return(
     <>
         <ThemeProvider theme={theme}>    
         <GlobalStyle/>
         <Router>
-        <Navbar/>
-        <Suspense fallback={<div className='meow'></div>} >
+        <Suspense fallback={<div>Loading....</div>} >
+            <Navbar/>
             <Routes>
-                <Route path="/"  element={<Main/>}/>
+                <Route exact path="/*"  element={<Main/>}/>
+                <Route exact path="/hehehe"  element={<div>apple</div>}/>
                 <Route path='*' element={<NotFound />} />  {/*404 error*/}
             </Routes>
         </Suspense>

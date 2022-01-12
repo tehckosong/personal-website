@@ -1,24 +1,20 @@
 import React , {useState , useRef}from 'react'
 import styled from 'styled-components'
-import Modal from '../ContactModel/Modal'
 import {Link} from 'react-router-dom'
+import {useModal} from '../../Context/ModalToggle'
 function Navlink(props) {
-    const [OpenModal, setOpenModal] = useState(false)
-
-    const ToggleModal = (event) => {
-        event.preventDefault()
-        setOpenModal(!OpenModal)
-    }
+    const {ToggleModal} = useModal();
 
     return (
         <>
         <Items>
             <Item href="#about">About</Item>
         </Items>
-        <Items>
-            <Link to="/contact"><Item className="contact" onClick={ToggleModal}>Contact Me</Item></Link>
-            {<Modal show={OpenModal} onCancel={ToggleModal} />}
-        </Items>
+        <Link to="contact">
+            <Items>
+                <Item>Contact Me</Item>
+            </Items>
+        </Link> 
         </>
     )
 }
