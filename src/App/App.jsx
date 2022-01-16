@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import Navbar from "./Shared/Components/navbar/Navbar"
 import { useThemeToggler } from './Shared/Context/ThemeToggle';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Spinner} from 'react-bootstrap'
 const Main = React.lazy(() => import("./Pages/Main"));
 const NotFound = React.lazy(() => import("./Pages/NotFound/NotFound"));
 const App = () => {
@@ -15,12 +16,12 @@ const App = () => {
         <ThemeProvider theme={theme}>    
         <GlobalStyle/>
         <Router>
-        <Suspense fallback={<div>Loading....</div>} >
+        <Suspense fallback={<div className='d-flex justify-content-center align-items-center vh-100'><Spinner animation="border" variant="warning"/></div>}>
             <Navbar/>
             <Routes>
                 <Route exact path="/*"  element={<Main/>}/>
                 <Route exact path="/hehehe"  element={<div>apple</div>}/>
-                <Route path='*' element={<NotFound />} />  {/*404 error*/}
+                <Route path='*' element={<NotFound />} /> 
             </Routes>
         </Suspense>
         </Router>

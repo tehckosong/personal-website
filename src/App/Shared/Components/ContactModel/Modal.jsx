@@ -63,21 +63,21 @@ const ContactOverlay = (props) => {
         <>
         <ContactForm onSubmit={SubmitForm}>
             <Button ref={exit} onClick={props.onCancel}><AiOutlineClose size={20}/></Button>
-            <FormGroup  controlId="Name">
+            <FormGroup  controlId="Name" >
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" onChange={handleName} required/>
+                <Form.Control type="text" onChange={handleName} required className="shadow-sm"/>
             </FormGroup>
             <FormGroup  controlId="Contact-No">
                 <Form.Label>Contact No </Form.Label>
-                <Form.Control type="number" onChange={handleContact}  />
+                <Form.Control type="number" onChange={handleContact} className="shadow-sm" />
             </FormGroup>
             <FormGroup  controlId="Email">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="name@example.com" onChange={handleEmail} required/>
+                <Form.Control type="email" placeholder="name@example.com" onChange={handleEmail} required className="shadow-sm"/>
             </FormGroup>
             <FormGroup className="message" controlId="Message">
                 <Form.Label>Message</Form.Label>
-                <Form.Control as="textarea" onChange={handleMessage} />
+                <Form.Control as="textarea" onChange={handleMessage} className="shadow-sm"/>
             </FormGroup>
             <Submit  type="submit" disabled={!enabled} >Submit</Submit>
             {error[0].isValid  ? <p style={{textAlign:"center"}}>{error[0].value}</p> :  ""}
@@ -92,15 +92,7 @@ function Modal(props) {
     return (
         <>
         {props.show && <Backdrop onClick={props.onCancel}/>}
-            <CSSTransition
-                in={props.show}
-                mountOnEnter
-                unmountOnExit
-                timeout={10}
-                classNames="modal"
-            >
             <ContactOverlay {...props} />
-            </CSSTransition>
         </>
     )
 }
@@ -128,24 +120,18 @@ const ContactForm = styled(Form) `
         left:15%;
         top:10%;
     }
+    animation: 0.5s ease-in-out slideInFromBottom;
+    @keyframes slideInFromBottom {
+        0% {
+            opacity:0.3;
+          transform: translateY(300px);
+        }
+        100% {
+        opacity:1;
+          transform: translateX(0);
+        }
+      }
 
-    &.modal-enter {
-        opacity: 0;
-        transform: translateY(500px);
-    }
-    &.modal-enter-active {
-        opacity: 1;
-        transform: translateY(0px);
-        transition: opacity 0.5s , transform 0.5s linear;
-    }
-    &.modal-exit {
-        opacity: 1;
-    }
-    &.modal-exit-active {
-        opacity: 0;
-        transform: translateY(500px);
-        transition: transform 0.5s , opacity 0.5s;
-    }
     
 `
 const FormGroup = styled(Form.Group) `

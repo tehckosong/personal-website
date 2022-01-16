@@ -11,7 +11,6 @@ ReactDOM.render(
         <ModalProvider>
         <App/>
         </ModalProvider>
-    </ThemeTogglerProvider>
-    
+    </ThemeTogglerProvider>  
     , 
 document.getElementById('root'));

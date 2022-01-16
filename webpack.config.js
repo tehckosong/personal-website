@@ -43,14 +43,14 @@ module.exports = {
         ]
     },
     devServer: {
-        historyApiFallback: true, // tell webpack to fallback for every path to your entry point: if not will get cannot get /home error
+        historyApiFallback: true, // fallback 
       },
     resolve : {
         extensions:['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss','.png', '.jpg', '.jpeg'],  //generate all possible path to the modules
         modules : ['src' , 'node_modules'],
     },
     plugins :[
-        new HtmlWebPackPlugin({  //create a html file to server webpack bundles includes in the body the script tag
+        new HtmlWebPackPlugin({  
             template : path.join(__dirname , 'src/index.html')
         })
         ,

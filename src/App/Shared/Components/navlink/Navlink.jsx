@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import {useModal} from '../../Context/ModalToggle'
 function Navlink(props) {
-    const {ToggleModal} = useModal();
+    const {ToggleModal, OpenModal} = useModal();
 
     return (
         <>
@@ -31,8 +31,8 @@ const Items = styled.div `
 `
 
 const Item = styled.a`
+
     &:hover {
-        transform: scaleX(1.04);
-        border-radius:5px;
+        transform: scaleX(1.05);
     }
 `
