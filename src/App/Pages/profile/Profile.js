@@ -127,10 +127,6 @@ const AboutCard = styled(Card)`
     @media (max-width: 475px) {
         padding: 0.8rem 10px;
     }
-
-    &:before{
-        filter: blur(1px);
-    }
 `
 const Row = styled.div `
     display:flex;
