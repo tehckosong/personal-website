@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
-import { useThemeToggler } from '../../Context/ThemeToggle'
+import { useThemeToggler } from '../../Shared/Context/ThemeToggle'
 
 function Footer() {
     const {theme} = useThemeToggler();

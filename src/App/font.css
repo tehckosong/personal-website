@@ -1,6 +1,7 @@
 
-@font-face {
-  font-family: 'Roboto Slab', serif;
-  src: url("./assets/RobotoSlab-Black.ttf") format('truetype');
-  
+
+@media (min-width: 800px) {
+    .menu{
+      display: none;
+    }
 }

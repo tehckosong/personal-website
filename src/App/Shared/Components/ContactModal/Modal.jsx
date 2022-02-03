@@ -1,18 +1,17 @@
 import React , {useState , useEffect , useRef} from 'react'
 import ReactDom from "react-dom"
-import { CSSTransition } from 'react-transition-group'
 import Backdrop from './Backdrop'
-import {Form, Spinner} from "react-bootstrap"
+import {Form, Spinner, FloatingLabel} from "react-bootstrap"
 import styled from 'styled-components'
 import {AiOutlineClose} from 'react-icons/ai'
 import axios from "axios"
 import { Validate_Email , Validate_Min } from '../validator/Validator'
+import {motion ,AnimatePresence} from "framer-motion"
 
 const ContactOverlay = (props) => { 
     const exit = useRef()
     const [enabled , setEnable] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [error , setError] = useState([{value: null , isValid : false}]);
     const [Name, setName] = useState([{value: null , isValid : false }]);
     const [Contact, setContact] = useState([{value:null , isValid : false }]);
     const [Email, setEmail] = useState([{value: null , isValid : false }]);
@@ -27,10 +26,22 @@ const ContactOverlay = (props) => {
         }
         setLoading(true)
         axios.post(process.env.EMAILER, form).then(res => {
-            res.data.status < 400 ?  exit.current.click() : setLoading(false)
-        }).catch(err => setError(prev => [{...prev, value:err.message ,  isValid : true}]) )
+            if(res.data.status < 400) {
+                setLoading(false);
+                props.setMessage(prev => [{...prev, value:"Success",  isValid : true}])
+                props.onCancel()
+            }
+            else {
+                props.setMessage(prev => [{...prev, value:"Error" ,  isValid : true}])
+            }
+        }).catch(err =>  {
+            props.setMessage(prev => [{...prev, value:"Error" ,  isValid : true}])
+            console.log(err)
+            setLoading(false);
+        } )
         
     }
+
 
     const handleName = (e) => {
         setName(prev => [{...prev , value:e.target.value , isValid :(Validate_Min(1,e.target.value))}])
@@ -56,32 +67,33 @@ const ContactOverlay = (props) => {
         else setEnable(false);
     }, [handleEmail, handleContact , handleMessage , handleName])
 
-        
-    
-    
+      
+
     const content = (
         <>
-        <ContactForm onSubmit={SubmitForm}>
-            <Button ref={exit} onClick={props.onCancel}><AiOutlineClose size={20}/></Button>
+        <ContactForm  as={motion.form} initial="hidden" animate="visible" exit="out" variants={list} onSubmit={SubmitForm}>
+            <h1>Contact Me</h1>
             <FormGroup  controlId="Name" >
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" onChange={handleName} required className="shadow-sm"/>
+                <FloatingLabel controlId="floatingInput" label="Name" className="mb-3">
+                    <FormControl type="text" onChange={handleName}  className="shadow-sm"/>
+                </FloatingLabel>
             </FormGroup>
             <FormGroup  controlId="Contact-No">
-                <Form.Label>Contact No </Form.Label>
-                <Form.Control type="number" onChange={handleContact} className="shadow-sm" />
+                <FloatingLabel controlId="floatingInput" label="Contact No" className="mb-3">
+                    <FormControl type="number" onChange={handleContact} className="shadow-sm" />
+                </FloatingLabel>
             </FormGroup>
             <FormGroup  controlId="Email">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="name@example.com" onChange={handleEmail} required className="shadow-sm"/>
+                <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
+                    <FormControl type="email"  onChange={handleEmail}  className="shadow-sm"/>
+                </FloatingLabel>
             </FormGroup>
             <FormGroup className="message" controlId="Message">
-                <Form.Label>Message</Form.Label>
-                <Form.Control as="textarea" onChange={handleMessage} className="shadow-sm"/>
+                <FloatingLabel controlId="floatingInput" label="Message" className="mb-3">
+                    <Form.Control as="textarea" onChange={handleMessage} className="shadow-sm"/>
+                </FloatingLabel>
             </FormGroup>
-            <Submit  type="submit" disabled={!enabled} >Submit</Submit>
-            {error[0].isValid  ? <p style={{textAlign:"center"}}>{error[0].value}</p> :  ""}
-            {loading ? <Spinner style={{margin:"0 auto 10px auto" , }} animation="border" role="status"/> : ""}
+            {loading ? <Spinner style={{margin:"0 auto 10px auto"}} animation="border" role="status"/> : (<Submit  type="submit" disabled={!enabled}>Submit</Submit>)}
         </ContactForm>
         </>
     )
@@ -91,8 +103,9 @@ const ContactOverlay = (props) => {
 function Modal(props) {
     return (
         <>
-        {props.show && <Backdrop onClick={props.onCancel}/>}
-            <ContactOverlay {...props} />
+        {props.show && <Backdrop onClick={props.onCancel}/> }
+        <ContactOverlay {...props} />
+
         </>
     )
 }
@@ -114,33 +127,24 @@ const ContactForm = styled(Form) `
     color:black;
     display:flex;
     flex-direction:column;
-
     @media (max-width: 800px) {
         width:70%;
         left:15%;
         top:10%;
     }
-    animation: 0.5s ease-in-out slideInFromBottom;
-    @keyframes slideInFromBottom {
-        0% {
-            opacity:0.3;
-          transform: translateY(300px);
-        }
-        100% {
-        opacity:1;
-          transform: translateX(0);
-        }
-      }
 
     
+      >h1{
+        padding: 1rem 2rem 1rem 2rem;
+        font-size:clamp(24px, 3vw ,30px)
+      }
+
 `
 const FormGroup = styled(Form.Group) `
     padding: 1rem 2rem 1rem 2rem;
     width : 95%;
-
     @media (max-width: 800px) {
         padding:0.5rem 1rem 0.5rem  1rem;
-        width : 100%;
     }
 `
 
@@ -156,3 +160,32 @@ const Submit = styled.button`
     border-radius:5px;
     background-color:#009DAE;
 `
+
+const FormControl = styled(Form.Control)`
+    border:none;
+    border-bottom: 1px solid lightgrey;
+`
+
+        
+const list = {
+    visible: { 
+        opacity: 1 ,
+        y:0,
+        transition: {
+            duration : 0.5,
+
+        }
+    },
+    hidden: { 
+        opacity: 0,
+        y:"-100vh",
+        
+    },
+    out : {
+        opacity:0,
+        y:"-100vh",
+        transition: {
+            duration : 0.3,
+        }
+    }
+  }

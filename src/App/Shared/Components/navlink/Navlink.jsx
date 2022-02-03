@@ -1,20 +1,17 @@
 import React , {useState , useRef}from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-import {useModal} from '../../Context/ModalToggle'
+
 function Navlink(props) {
-    const {ToggleModal, OpenModal} = useModal();
 
     return (
         <>
+            <h4 className='menu' style={{position:'absolute', top:30 , left:30}}>Menu</h4>
         <Items>
-            <Item href="#about">About</Item>
+            <li><a href="#about">About</a></li>
+            <li className='work'><a href="#work">Work</a></li>
+            <li><Link to="contact">Contact</Link></li>
         </Items>
-        <Link to="contact">
-            <Items>
-                <Item>Contact Me</Item>
-            </Items>
-        </Link> 
         </>
     )
 }
@@ -23,16 +20,37 @@ export default Navlink
 
 const Items = styled.div `
     display:flex;
-    margin: 0 15px 0 15px;
-    @media (max-width: 800px) {
-        margin: 8px 8px 8px 12px;
-        font-weight:600;    
-    }
-`
+    flex-direction:column;
+    margin:6rem 1rem;
+    font-weight:600; 
 
-const Item = styled.a`
-
-    &:hover {
-        transform: scaleX(1.05);
+    li {
+        list-style:none;
+        font-size:28px;
+        margin:10px 10px;
     }
+    
+    .work{
+        display:block;
+    }
+    li:hover {
+        transform: scaleX(1.03);        
+    }
+
+    @media (min-width: 800px) {
+        display:flex;
+        flex-direction:row;
+        margin: 0 15px 0 15px;
+        
+        li {
+            font-size:20px;
+            margin: 0px 1rem;
+        }
+
+        .work{
+            display:none;
+        }
+        
+    }
+
 `

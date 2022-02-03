@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "webpack-dev-server",
-    "start:prod": "node server.js ",
+    "start:prod": "nodemon server.js ",
     "build:dev": "webpack --config webpack.config.js ",
-    "build:prod": "webpack --config webpack.config.production.js ",
-    "start": "node server.js"
+    "build:prod": "webpack --config webpack.config.production.js "
   },
   "author": "hs tan",
   "license": "ISC",
@@ -36,7 +35,9 @@
     "dotenv": "^10.0.0",
     "env-cmd": "^10.1.0",
     "express": "^4.17.2",
+    "framer-motion": "^6.2.3",
     "mongoose": "^6.1.5",
+    "nodemon": "^2.0.15",
     "path-browserify": "^1.0.1",
     "react-bootstrap": "^2.1.0",
     "react-dom": "^17.0.2",
